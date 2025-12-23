@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="description"
+      content="Aloha Cosmos: Fine-tuning World Models for Egocentric Policy Evaluation."
+    />
+    <meta
+      name="keywords"
+      content="Cosmos, LoRA, Video Generation, World Models, Robotics"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>
+      Aloha Cosmos: Fine-tuning World Models for Egocentric Robot Policy
+      Evaluation
+    </title>
+
+    <link
+      href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+      rel="stylesheet"
+    />
+
+    <link rel="stylesheet" href="./static/css/bulma.min.css" />
+    <link rel="stylesheet" href="./static/css/fontawesome.all.min.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css"
+    />
+    <link rel="stylesheet" href="./static/css/index.css" />
+
+    <script defer src="./static/js/fontawesome.all.min.js"></script>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="hero-body">
+        <div class="container is-max-desktop">
+          <div class="columns is-centered">
+            <div class="column has-text-centered">
+              <h1 class="title is-1 publication-title">
+                Aloha Cosmos: Fine-tuning World Models<br />
+                for Egocentric Robot Policy Evaluation
+              </h1>
+              <div class="is-size-5 publication-authors">
+                <span class="author-block">
+                  <a href="https://github.com/aphamm">Austin Pham</a
+                  ><sup>* 1</sup>,
+                </span>
+                <span class="author-block">
+                  <a href="https://www.hodlipson.com">Hod Lipson</a
+                  ><sup>† 1</sup>
+                </span>
+                <span class="author-block">
+                  <a href="https://yuewang.xyz">Yue Wang</a><sup>† 2</sup>
+                </span>
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block" style="margin-right: 1rem"
+                  ><sup>1</sup>Columbia University</span
+                >
+                <span class="author-block"><sup>2</sup>USC</span>
+              </div>
+
+              <div class="is-size-5 publication-authors">
+                <span class="author-block" style="margin-right: 1rem"
+                  ><sup>*</sup>Core Contributors</span
+                >
+                <span class="author-block"><sup>†</sup>Co-advising</span>
+              </div>
+
+              <div class="column has-text-centered">
+                <div class="publication-links">
+                  <!-- Paper Link. -->
+                  <span class="link-block">
+                    <a
+                      href="https://github.com/aphamm/aloha-cosmos"
+                      class="external-link button is-normal is-rounded is-dark"
+                    >
+                      <span class="icon">
+                        <i class="ai ai-arxiv"></i>
+                      </span>
+                      <span>Paper</span>
+                    </a>
+                  </span>
+                  <!-- Code Link. -->
+                  <span class="link-block">
+                    <a
+                      href="https://github.com/aphamm/aloha-cosmos"
+                      class="external-link button is-normal is-rounded is-dark"
+                    >
+                      <span class="icon">
+                        <i class="fab fa-github"></i>
+                      </span>
+                      <span>Code</span>
+                    </a>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <!-- Abstract. -->
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-four-fifths">
+            <h2 class="title is-3">Abstract</h2>
+            <div class="content has-text-justified">
+              <p>
+                We demonstrate the effectiveness of Low-Rank Adaptation (LoRA)
+                fine-tuning on NVIDIA's Cosmos Predict2 Video2World model for
+                robot manipulation tasks. By training on domain-specific
+                robotics data, the LoRA-adapted model generates more realistic
+                and task-coherent video predictions compared to the base model.
+                The fine-tuned model shows improved understanding of robotic
+                actions, object interactions, and physical plausibility in
+                manipulation scenarios. Below we compare the
+                <strong>Input</strong> ground-truth videos against our model's
+                <strong>Output</strong> predictions, given the same input frame
+                and text prompt.
+              </p>
+            </div>
+          </div>
+        </div>
+        <!--/ Abstract. -->
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">GR1-T2 Dataset</h2>
+
+        <!-- GR1 Video 0 -->
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="columns">
+              <div class="column">
+                <h3 class="title is-4">Base Model</h3>
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/gr1_0_input.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="column">
+                <h3 class="title is-4">Fine-tuned Model</h3>
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/gr1_0_output.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                <strong>Prompt:</strong>
+                <em
+                  >"Use the right hand to pick up rubik's cube from top level of
+                  the wooden shelf to bottom level of the wooden shelf."</em
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- GR1 Video 1 -->
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="columns">
+              <div class="column">
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/gr1_1_input.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="column">
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/gr1_1_output.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                <strong>Prompt:</strong>
+                <em
+                  >"Use the right hand to pick up pink mug from top level of the
+                  shelf to tan table."</em
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- GR1 Video 2 -->
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="columns">
+              <div class="column">
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/gr1_2_input.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="column">
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/gr1_2_output.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                <strong>Prompt:</strong>
+                <em
+                  >"Use the left hand to pick up brown potato from dark blue
+                  plate to the left to yellow plate to the right."</em
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <h2 class="title is-3 has-text-centered">Bridge Dataset</h2>
+
+        <!-- Bridge Video 0 -->
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="columns">
+              <div class="column">
+                <h3 class="title is-4">Recorded Demo</h3>
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/bridge_0_input.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="column">
+                <h3 class="title is-4">Fine-tuned Model</h3>
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/bridge_0_output.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                <strong>Prompt:</strong>
+                <em
+                  >"Move the spatula to the far left corner behind the pot."</em
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bridge Video 1 -->
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="columns">
+              <div class="column">
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/bridge_1_input.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="column">
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/bridge_1_output.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                <strong>Prompt:</strong>
+                <em>"Place the pot behind the green pear."</em>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bridge Video 3 -->
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <div class="columns">
+              <div class="column">
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/bridge_3_input.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+              <div class="column">
+                <video autoplay controls muted loop playsinline width="100%">
+                  <source
+                    src="./static/videos/bridge_3_output.mp4"
+                    type="video/mp4"
+                  />
+                </video>
+              </div>
+            </div>
+            <div class="content has-text-justified">
+              <p>
+                <strong>Prompt:</strong>
+                <em>"Place the mushroom in front of the microwave."</em>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="BibTeX">
+      <div class="container is-max-desktop content">
+        <h2 class="title">BibTeX</h2>
+        <pre><code>@article{pham2025alohacosmos,
+    title     = {Aloha Cosmos: Fine-tuning World Models for Egocentric Robot Policy Evaluation},
+    author    = {Austin Pham and Hod Lipson and Yue Wang},
+    journal   = {arXiv preprint},
+    year      = {2025},
+}</code></pre>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="columns is-centered">
+          <div class="column is-8">
+            <div class="content">
+              <p>
+                This website is based on the
+                <a href="https://github.com/nerfies/nerfies.github.io"
+                  >nerfies template</a
+                >
+                which is licensed under a
+                <a
+                  rel="license"
+                  href="https://creativecommons.org/licenses/by-sa/4.0/"
+                  >Creative Commons Attribution-ShareAlike 4.0 International
+                  License</a
+                >.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
