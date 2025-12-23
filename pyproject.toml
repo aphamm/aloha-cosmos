@@ -1,0 +1,12 @@
+[project]
+name = "aloha-cosmos"
+version = "0.1.0"
+description = "Run NVIDIA's Cosmos Predict2 world foundation models on Modal's serverless GPUs"
+readme = "README.md"
+authors = [
+    { name = "Austin Pham", email = "austin@abundance.company" }
+]
+requires-python = ">=3.10"
+dependencies = [
+    "modal>=1.3.0.post1",
+]
